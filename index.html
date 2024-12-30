@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+        }
+        .form-container input, .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Contact Us</h2>
+        <form id="contactForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="text" id="contact" placeholder="Contact Number" required>
+            <input type="email" id="email" placeholder="Email Address" required>
+            <textarea id="message" placeholder="Your Message" rows="4" required></textarea>
+            <button type="button" onclick="sendMessage()">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        const BOT_TOKEN = "YOUR_BOT_TOKEN";
+        const CHAT_ID = "YOUR_CHAT_ID";
+
+        function sendMessage() {
+            const name = document.getElementById('name').value;
+            const contact = document.getElementById('contact').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            if (!name || !contact || !email || !message) {
+                alert("Please fill out all fields.");
+                return;
+            }
+
+            const text = `
+Name: ${name}
+Contact: ${contact}
+Email: ${email}
+Message: ${message}
+            `;
+
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}`;
+
+            fetch(url)
+                .then(response => {
+                    if (response.ok) {
+                        alert("Message sent successfully!");
+                        document.getElementById('contactForm').reset();
+                    } else {
+                        alert("Failed to send message. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred. Please try again.");
+                });
+        }
+    </script>
+</body>
+</html>
