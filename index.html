@@ -58,8 +58,8 @@
     </div>
 
     <script>
-        const BOT_TOKEN = "YOUR_BOT_TOKEN";
-        const CHAT_ID = "YOUR_CHAT_ID";
+        const BOT_TOKEN = "7926686617:AAGJNqOnuLCDrynrRRTQLbrzZxIh6C4YW-A";
+        const CHAT_ID = "7926686617";
 
         function sendMessage() {
             const name = document.getElementById('name').value;
@@ -79,7 +79,7 @@ Email: ${email}
 Message: ${message}
             `;
 
-            const url = `https://api.telegram.org/bot${7926686617:AAGJNqOnuLCDrynrRRTQLbrzZxIh6C4YW-A}/sendMessage?chat_id=${7926686617}&text=${encodeURIComponent(text)}`;
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}`;
 
             fetch(url)
                 .then(response => {
